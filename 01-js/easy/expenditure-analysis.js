@@ -13,37 +13,24 @@
   Output - [{ category: 'Food', totalSpent: 10 }] // Can have multiple categories, only one example is mentioned here
 */
 
-const transactions = [
-  {
-    "category": "Food",
-    "totalSpent": 30,
-  },
-  {
-    "category": "Clothing",
-    "totalSpent": 40,
-  },
-  {
-    "category": "Electronics",
-    "totalSpent": 30,
-  },
-]
-
-calculateTotalSpentByCategory(transactions)
-
+// --------- DONE -----------
 
 function calculateTotalSpentByCategory(transactions) {
   let ans = [];
 
   transactions.forEach(transaction => {
-    // check if transaction.category in the answer, if present than increment the count value with it.
-    for (let i = 0; i < ans.length; i++) {
-      if (ans[i] && ans[i].category === transaction.category) {
-        const temp = ans[i]["category"] + 1;
-        ans[i].category = temp;
-      }
+    const transactionIndex = ans.findIndex(t => t.category === transaction.category);
+    if (transactionIndex === -1) {
+      ans.push({
+        category: transaction.category,
+        totalSpent: transaction.price,
+      })
+    }
+    else {
+      let temp = ans[transactionIndex].totalSpent + transaction.price;
+      ans[transactionIndex].totalSpent = temp;
     }
   });
-  console.log("Ans: ", ans);
 
   return ans;
 }
